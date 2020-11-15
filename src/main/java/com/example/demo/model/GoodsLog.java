@@ -11,7 +11,7 @@ import java.util.Date;
 
 /**
  * @ClassName GoodsLog
- * @Description TODO
+ * @Description 实体
  * @Author tianlg
  * @Date 2020/11/15 14:26
  * @Version 1.0
