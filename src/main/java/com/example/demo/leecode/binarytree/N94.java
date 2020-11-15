@@ -1,4 +1,4 @@
-package com.example.demo.binarytree;
+package com.example.demo.leecode.binarytree;
 
 //给定一个二叉树，返回它的中序 遍历。
 //
