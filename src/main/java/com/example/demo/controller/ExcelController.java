@@ -42,6 +42,11 @@ public class ExcelController {
         return excelService.bulkCheck(Ids);
     }
 
+    @PutMapping(value = "/unCheck")
+    public List<GoodsLog> bulkUnCheck(@RequestBody List<Long> Ids) {
+        return excelService.bulkUnCheck(Ids);
+    }
+
     @GetMapping(value = "downLoadExcel")
     public void downLoadExcel(HttpServletResponse response) {
         excelService.downLoadExcel(response);

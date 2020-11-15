@@ -6,6 +6,7 @@ import com.example.demo.common.Utils;
 import com.example.demo.mapper.GoodsLogMapper;
 import com.example.demo.model.GoodsLog;
 import com.example.demo.service.ExcelService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -73,7 +74,11 @@ public class ExcelServiceImpl implements ExcelService {
      **/
     @Override
     public List<GoodsLog> selectByCode(String code) {
-        return goodsLogMapper.selectList(new LambdaQueryWrapper<GoodsLog>().eq(GoodsLog::getCode, code));
+        if(StringUtils.isBlank(code)){
+            return goodsLogMapper.selectList(new LambdaQueryWrapper<GoodsLog>().orderByDesc(GoodsLog::getCreateTime).last("LIMIT 20"));
+        }else{
+            return goodsLogMapper.selectList(new LambdaQueryWrapper<GoodsLog>().eq(GoodsLog::getCode, code));
+        }
     }
 
     @Override
@@ -82,6 +87,17 @@ public class ExcelServiceImpl implements ExcelService {
             GoodsLog goodsLog = new GoodsLog();
             goodsLog.setId(id);
             goodsLog.setCheckStatus(1);
+            goodsLogMapper.updateById(goodsLog);
+        }
+        return null;
+    }
+
+    @Override
+    public List<GoodsLog> bulkUnCheck(List<Long> ids) {
+        for (Long id : ids) {
+            GoodsLog goodsLog = new GoodsLog();
+            goodsLog.setId(id);
+            goodsLog.setCheckStatus(0);
             goodsLogMapper.updateById(goodsLog);
         }
         return null;

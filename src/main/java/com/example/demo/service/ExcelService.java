@@ -32,4 +32,6 @@ public interface ExcelService {
     List<GoodsLog> selectByCode(String code);
 
     List<GoodsLog> bulkCheck(List<Long> ids);
+
+    List<GoodsLog> bulkUnCheck(List<Long> ids);
 }

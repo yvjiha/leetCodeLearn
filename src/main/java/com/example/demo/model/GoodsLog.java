@@ -45,7 +45,7 @@ public class GoodsLog {
      */
     private Date createTime;
     /**
-     *
+     *  合计状态  0: 未合计  1:已合计
      */
     private Integer checkStatus;
 
