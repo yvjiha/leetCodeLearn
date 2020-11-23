@@ -32,6 +32,11 @@ public class ExcelController {
         return excelService.fileUpload(file);
     }
 
+    @PutMapping("")
+    public Integer updateById(@RequestBody GoodsLog goodsLog) {
+        return excelService.updateById(goodsLog);
+    }
+
     @GetMapping(value = "/by")
     public List<GoodsLog> selectByCode(@RequestParam("code") String code) {
         return excelService.selectByCode(code);

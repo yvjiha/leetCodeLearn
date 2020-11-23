@@ -11,6 +11,7 @@ import java.util.List;
 public interface ExcelService {
     /**
      * 上传/导入
+     *
      * @param file
      * @return
      */
@@ -18,20 +19,29 @@ public interface ExcelService {
 
     /**
      * 下载/导出
+     *
      * @param response
      */
     void downLoadExcel(HttpServletResponse response);
 
     /**
-    * @Description: 通过车牌获取
-    * @Param: 
-    * @return: 
-    * @Author: tianlg
-    * @Date: 2020/11/15
-    **/
+     * @Description: 通过车牌获取
+     * @Param:
+     * @return:
+     * @Author: tianlg
+     * @Date: 2020/11/15
+     **/
     List<GoodsLog> selectByCode(String code);
 
     List<GoodsLog> bulkCheck(List<Long> ids);
 
     List<GoodsLog> bulkUnCheck(List<Long> ids);
+
+    /**
+     * 修改
+     *
+     * @param goodsLog
+     * @return
+     */
+    Integer updateById(GoodsLog goodsLog);
 }

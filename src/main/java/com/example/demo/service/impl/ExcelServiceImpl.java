@@ -74,9 +74,9 @@ public class ExcelServiceImpl implements ExcelService {
      **/
     @Override
     public List<GoodsLog> selectByCode(String code) {
-        if(StringUtils.isBlank(code)){
+        if (StringUtils.isBlank(code)) {
             return goodsLogMapper.selectList(new LambdaQueryWrapper<GoodsLog>().orderByDesc(GoodsLog::getCreateTime).last("LIMIT 20"));
-        }else{
+        } else {
             return goodsLogMapper.selectList(new LambdaQueryWrapper<GoodsLog>().eq(GoodsLog::getCode, code));
         }
     }
@@ -101,5 +101,16 @@ public class ExcelServiceImpl implements ExcelService {
             goodsLogMapper.updateById(goodsLog);
         }
         return null;
+    }
+
+    /**
+     * 修改
+     *
+     * @param goodsLog
+     * @return
+     */
+    @Override
+    public Integer updateById(GoodsLog goodsLog) {
+        return goodsLogMapper.updateById(goodsLog);
     }
 }
