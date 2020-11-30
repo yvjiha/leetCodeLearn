@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public interface ExcelService {
@@ -25,7 +26,7 @@ public interface ExcelService {
     void downLoadExcel(HttpServletResponse response);
 
     /**
-     * @Description: 通过车牌获取
+     * @Description: 查询列表
      * @Param:
      * @return:
      * @Author: tianlg
@@ -44,4 +45,11 @@ public interface ExcelService {
      * @return
      */
     Integer updateById(GoodsLog goodsLog);
+
+    /**
+     * 批量删除
+     * @param ids
+     * @return
+     */
+    void bulkDel(List<Long> ids);
 }

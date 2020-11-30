@@ -13,4 +13,11 @@
         <result property="checkStatus" column="check_status"/>
     </resultMap>
 
+    <update id="bulkDel">
+        UPDATE goods_log SET del_flag = 1 WHERE id IN
+        <foreach collection="ids" open="(" close=")" item="id" separator=",">
+            #{id}
+        </foreach>
+    </update>
+
 </mapper>

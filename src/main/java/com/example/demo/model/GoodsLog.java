@@ -49,4 +49,9 @@ public class GoodsLog {
      */
     private Integer checkStatus;
 
+    /**
+     *  是否删除
+     */
+    private Integer delFlag;
+
 }

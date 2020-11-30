@@ -48,6 +48,7 @@ public class ExcelServiceImpl implements ExcelService {
         List<GoodsLog> GoodsLogs = ExcelUtils.importExcel(file, 0, 1, true, GoodsLog.class);
         for (GoodsLog goodsLog : GoodsLogs) {
             goodsLog.setCreateTime(new Date());
+            goodsLog.setDelFlag(0);
             goodsLogMapper.insert(goodsLog);
         }
         return new ResponseEntity(HttpStatus.OK);
@@ -75,9 +76,13 @@ public class ExcelServiceImpl implements ExcelService {
     @Override
     public List<GoodsLog> selectByCode(String code) {
         if (StringUtils.isBlank(code)) {
-            return goodsLogMapper.selectList(new LambdaQueryWrapper<GoodsLog>().orderByDesc(GoodsLog::getCreateTime).last("LIMIT 20"));
+            return goodsLogMapper.selectList(new LambdaQueryWrapper<GoodsLog>()
+                    .eq(GoodsLog::getDelFlag,0).orderByDesc(GoodsLog::getCheckStatus)
+                    .orderByDesc(GoodsLog::getCode).orderByDesc(GoodsLog::getCreateTime)
+                    .last("LIMIT 20"));
         } else {
-            return goodsLogMapper.selectList(new LambdaQueryWrapper<GoodsLog>().eq(GoodsLog::getCode, code));
+            return goodsLogMapper.selectList(new LambdaQueryWrapper<GoodsLog>().eq(GoodsLog::getCode, code)
+                    .eq(GoodsLog::getDelFlag,0).orderByDesc(GoodsLog::getCheckStatus).orderByDesc(GoodsLog::getCode));
         }
     }
 
@@ -112,5 +117,16 @@ public class ExcelServiceImpl implements ExcelService {
     @Override
     public Integer updateById(GoodsLog goodsLog) {
         return goodsLogMapper.updateById(goodsLog);
+    }
+
+    /**
+     * 删除
+     *
+     * @param ids
+     * @return
+     */
+    @Override
+    public void bulkDel(List<Long> ids) {
+        goodsLogMapper.bulkDel(ids);
     }
 }
