@@ -77,12 +77,13 @@ public class ExcelServiceImpl implements ExcelService {
     public List<GoodsLog> selectByCode(String code) {
         if (StringUtils.isBlank(code)) {
             return goodsLogMapper.selectList(new LambdaQueryWrapper<GoodsLog>()
-                    .eq(GoodsLog::getDelFlag,0).orderByDesc(GoodsLog::getCheckStatus)
-                    .orderByDesc(GoodsLog::getCode).orderByDesc(GoodsLog::getCreateTime)
+                    .eq(GoodsLog::getDelFlag,0).isNotNull(GoodsLog::getCode)
+                    .orderByAsc(GoodsLog::getCheckStatus).orderByDesc(GoodsLog::getCreateTime)
                     .last("LIMIT 20"));
         } else {
             return goodsLogMapper.selectList(new LambdaQueryWrapper<GoodsLog>().eq(GoodsLog::getCode, code)
-                    .eq(GoodsLog::getDelFlag,0).orderByDesc(GoodsLog::getCheckStatus).orderByDesc(GoodsLog::getCode));
+                    .eq(GoodsLog::getDelFlag,0).isNotNull(GoodsLog::getCode)
+                    .orderByAsc(GoodsLog::getCheckStatus).orderByDesc(GoodsLog::getCreateTime));
         }
     }
 
